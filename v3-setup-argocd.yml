@@ -4,7 +4,7 @@
 #===========================================================================================================================
 
 
-v3-infra-setup-arogcd-1:
+v3-infra-setup-arogcd-0:
   stage: setup-argocd
   image: gcr.io/tk-automation-1483/time-keeper-cicd:v1.1
   variables:
