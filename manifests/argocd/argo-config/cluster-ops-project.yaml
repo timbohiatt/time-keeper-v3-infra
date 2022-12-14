@@ -15,6 +15,7 @@ spec:
   destinations:
   - namespace: '*'
     server: https://192.168.0.2 
+    name: tk-v3-lcl-europe-west6
 
   # Deny all cluster-scoped resources from being created, except for Namespace
   #clusterResourceWhitelist:
