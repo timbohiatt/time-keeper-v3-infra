@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: ops-argocd
+  name: argocd
   labels:
-    name: ops-argocd
+    name: argocd
     istio-injection: enabled
