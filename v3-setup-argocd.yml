@@ -51,5 +51,5 @@ v3-infra-setup-arogcd-2:
     - kubectl apply -f manifests/argocd/argo-config/projects --recursive
     - kubectl apply -f manifests/argocd/argo-config/clusters --recursive
     - kubectl apply -f manifests/argocd/argo-config/ops --recursive
-    - kubectl apply -f manifests/argocd/argo-config/applications --recursive
+    #- kubectl apply -f manifests/argocd/argo-config/applications --recursive
     #- kubectl apply -f manifests/argocd/virtualService.yaml  -n ops-argocd || true
