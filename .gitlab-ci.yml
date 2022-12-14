@@ -1,0 +1,4 @@
+include:
+  - local: '/v3-kubctl-test.yml'
+stages:
+  - kubectl-test
