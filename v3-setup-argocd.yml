@@ -49,6 +49,7 @@ v3-infra-setup-arogcd-2:
     - gcloud container clusters list --project="${GCP_PROJECT}"
     - gcloud container clusters get-credentials automation --region=europe-west6 --project="${GCP_PROJECT}"
     - kubectl apply -f manifests/argocd/argo-config/projects --recursive
+    - kubectl apply -f manifests/argocd/argo-config/clusters --recursive
     - kubectl apply -f manifests/argocd/argo-config/ops --recursive
     - kubectl apply -f manifests/argocd/argo-config/applications --recursive
     #- kubectl apply -f manifests/argocd/virtualService.yaml  -n ops-argocd || true
