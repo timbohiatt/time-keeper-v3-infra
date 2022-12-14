@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tk-v3-lcl-europe-west6
+  labels:
+    argocd.argoproj.io/secret-type: cluster
+type: Opaque
+stringData:
+  name: tk-v3-lcl-europe-west6
+  server: https://192.168.0.2
+  config: |
+    {
+      "execProviderConfig": {
+        "command": "argocd-k8s-auth",
+        "args": ["gcp"],
+        "apiVersion": "client.authentication.k8s.io/v1beta1"
+      },
+    }
