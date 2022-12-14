@@ -1,4 +1,4 @@
 include:
-  - local: '/v3-kubctl-test.yml'
+  - local: '/v3-setup-argocd.yml'
 stages:
-  - kubectl-test
+  - setup-argocd
