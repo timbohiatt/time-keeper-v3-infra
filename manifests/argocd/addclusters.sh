@@ -14,6 +14,9 @@ echo $clusterName
 echo $clusterZone
 echo $clusterEndpoint
 
+
+if [ $clusterName != "automation" ]; then
+
 cat <<EOF > ${clusterName}-argo-secret.yaml
 ---
 apiVersion: v1
@@ -39,6 +42,7 @@ stringData:
         "caData": ${clusterCACert}
       }
 EOF
-
-kubectl apply -f ${clusterName}-argo-secret.yaml -n argocd
+fi
 done
+
+kubectl apply -f *-argo-secret.yaml -n argocd
