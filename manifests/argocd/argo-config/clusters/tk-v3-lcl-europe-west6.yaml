@@ -16,6 +16,7 @@ stringData:
         "apiVersion": "client.authentication.k8s.io/v1beta1"
       },
       "tlsClientConfig": {
-        "insecure": true
+        "insecure": false,
+        "caData": "<base64 encoded certificate>"
       }
     }
