@@ -3,21 +3,7 @@
 #     Description:  Configure ArgoCD inside Automation GKE Cluster
 #===========================================================================================================================
 
-
 v3-infra-setup-arogcd-0:
-  stage: setup-argocd
-  image: gcr.io/tk-automation-1483/time-keeper-cicd:v1.1
-  variables:
-    GCP_PROJECT: "tk-v3-lcl-4421"
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH != "main"'
-      when: on_success
-  script:
-    - gcloud container clusters list --project="${GCP_PROJECT}"
-    - gcloud container clusters get-credentials automation --region=europe-west6 --project="${GCP_PROJECT}"
-    - kubectl get ns
-
-v3-infra-setup-arogcd-1:
   stage: setup-argocd
   needs:
     - job: v3-infra-setup-arogcd-0
@@ -34,11 +20,10 @@ v3-infra-setup-arogcd-1:
     - kubectl apply -f manifests/argocd/install-manifests.yaml || true
     #- kubectl apply -f manifests/argocd/virtualService.yaml  -n ops-argocd || true
 
-v3-infra-setup-arogcd-2:
+v3-infra-setup-arogcd-1:
   stage: setup-argocd
   needs:
     - job: v3-infra-setup-arogcd-0
-    - job: v3-infra-setup-arogcd-1
   image: gcr.io/tk-automation-1483/time-keeper-cicd:v1.1
   variables:
     GCP_PROJECT: "tk-v3-lcl-4421"

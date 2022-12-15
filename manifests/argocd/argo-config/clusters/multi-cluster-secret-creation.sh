@@ -4,7 +4,7 @@ PROJECT=$1
 
 PROJECT_NUMBER=$(gcloud projects list --format='csv[no-heading](PROJECT_NUMBER)'  --filter="project_id=${PROJECT}")
 
-for cluster in $(gcloud container clusters list --format='csv[no-heading](name,zone, endpoint)' --project="${PROJECT}" )
+for cluster in $(gcloud container clusters list --format='csv[no-heading](name,zone, endpoint)' --filter="name!=automation" --project="${PROJECT}" )
 do
     
     echo $cluster
@@ -15,11 +15,6 @@ do
 
     CLUSTER_NAME=$(echo $cluster | cut -d "," -f 1)
     REGION=$(echo $cluster | cut -d "," -f 2)
-
-    echo $clusterName
-    echo $clusterZone
-    echo $clusterEndpoint
-    echo $PROJECT
 
     gcloud container clusters get-credentials $clusterName --region="$clusterZone" --project="$PROJECT"
 
@@ -38,9 +33,7 @@ metadata:
   name: ${CLUSTER_NAME}
   labels:
     argocd.argoproj.io/secret-type: cluster
-    env: prod
     region: ${REGION}
-    wave: "${APP_DEPLOYMENT_WAVE}"
 type: Opaque
 stringData:
   name: ${CLUSTER_NAME}
@@ -58,6 +51,6 @@ stringData:
       }
     }
 EOF
-kubectl apply -f ${CLUSTER_NAME}-argo-secret.yaml -n argocd
+kubectl apply -f ${CLUSTER_NAME}-argo-secret.yaml
     
 done
