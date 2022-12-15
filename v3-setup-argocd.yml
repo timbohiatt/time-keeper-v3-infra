@@ -33,6 +33,7 @@ v3-infra-setup-arogcd-1:
     - kubectl apply -f manifests/argocd/namespaces/namespace.yaml
     - kubectl apply -f manifests/argocd/install-manifests.yaml || true
     #- kubectl apply -f manifests/argocd/virtualService.yaml  -n ops-argocd || true
+    
 v3-infra-setup-arogcd-2:
   stage: add-clusters
   needs:
