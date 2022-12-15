@@ -31,7 +31,7 @@ v3-infra-setup-arogcd-1:
     - gcloud container clusters list --project="${GCP_PROJECT}"
     - gcloud container clusters get-credentials tk-v3-lcl-gke-europe-west6 --region=europe-west6 --project="${GCP_PROJECT}"
     - kubectl apply -f manifests/argocd/namespaces/namespace.yaml
-    - kubectl apply -f manifests/argocd/install-manifests.yaml || true
+    - kubectl apply -f manifests/argocd/install-manifests.yaml -n argocd
     #- kubectl apply -f manifests/argocd/virtualService.yaml  -n ops-argocd || true
 
 v3-infra-setup-arogcd-2:

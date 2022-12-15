@@ -7,7 +7,7 @@ do
 clusterName=$(echo $cluster | cut -d "," -f 1)
 clusterZone=$(echo $cluster | cut -d "," -f 2)
 clusterEndpoint=$(echo $cluster | cut -d "," -f 3)
-clusterCACert=$(gcloud container clusters describe $clusterName --region $clusterZone --format='csv[no-heading](masterAuth.clusterCaCertificate)' | base64)
+clusterCACert=$(gcloud container clusters describe $clusterName --region $clusterZone --format='csv[no-heading](masterAuth.clusterCaCertificate)')
 
 echo $cluster
 echo $clusterName
@@ -17,7 +17,9 @@ echo $clusterEndpoint
 
 if [ $clusterName != "automation" ]; then
 
-cat <<EOF > ${clusterName}-argo-secret.yaml
+mkdir -p /tmp/outputs
+
+cat <<EOF > /tmp/outputs/${clusterName}-argo-secret.yaml
 ---
 apiVersion: v1
 kind: Secret
@@ -31,18 +33,19 @@ stringData:
   name: ${clusterName}
   server: https://${clusterEndpoint}
   config: |
-	{
+    {
       "execProviderConfig": {
         "command": "argocd-k8s-auth",
         "args": ["gcp"],
         "apiVersion": "client.authentication.k8s.io/v1beta1"
       },
- 	"tlsClientConfig": {
+      "tlsClientConfig": {
         "insecure": false,
-        "caData": ${clusterCACert}
+        "caData": "${clusterCACert}"
       }
+    }
 EOF
 fi
 done
 
-kubectl apply -f *-argo-secret.yaml
+kubectl apply -f /tmp/outputs/ --recursive -n argocd
