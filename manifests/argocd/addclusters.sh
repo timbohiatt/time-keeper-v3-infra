@@ -45,4 +45,4 @@ EOF
 fi
 done
 
-kubectl apply -f *-argo-secret.yaml -n argocd
+kubectl apply -f *-argo-secret.yaml
