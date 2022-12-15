@@ -2,3 +2,4 @@ include:
   - local: '/v3-setup-argocd.yml'
 stages:
   - setup-argocd
+  - add-clusters
