@@ -1,4 +1,5 @@
 include:
-  - local: '/v3-setup-argocd.yml'
+  - local: '/v3-setup.yml'
 stages:
   - setup-argocd
+  - install-istio 

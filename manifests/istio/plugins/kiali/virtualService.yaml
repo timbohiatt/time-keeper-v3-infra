@@ -1,0 +1,21 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ops-kiali
+  namespace: istio-system
+spec: 
+  gateways:
+  - istio-system/ingress-gateway
+  hosts: 
+  - "kiali.ops.v3.lcl.time-keeper.watch"
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route: 
+    - destination: 
+        host: kiali.istio-system.svc.cluster.local
+        port: 
+          number: 20001
+
