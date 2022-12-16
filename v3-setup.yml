@@ -48,4 +48,5 @@ v3-infra-setup-2:
   script:
     - gcloud container clusters list --project="${GCP_PROJECT}"
     - gcloud container clusters get-credentials automation --region=europe-west6 --project="${GCP_PROJECT}"
+    - sh manifests/istio/addclusters.sh $GCP_PROJECT
 
