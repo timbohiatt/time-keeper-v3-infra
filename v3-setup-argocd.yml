@@ -14,7 +14,7 @@ v3-infra-setup-arogcd-0:
       when: on_success
   script:
     - gcloud container clusters list --project="${GCP_PROJECT}"
-    - gcloud container clusters get-credentials tk-v3-lcl-gke-europe-west6 --region=europe-west6 --project="${GCP_PROJECT}"
+    - gcloud container clusters get-credentials automation --region=europe-west6 --project="${GCP_PROJECT}"
     - kubectl get ns
 
 v3-infra-setup-arogcd-1:
@@ -29,7 +29,7 @@ v3-infra-setup-arogcd-1:
       when: on_success
   script:
     - gcloud container clusters list --project="${GCP_PROJECT}"
-    - gcloud container clusters get-credentials tk-v3-lcl-gke-europe-west6 --region=europe-west6 --project="${GCP_PROJECT}"
+    - gcloud container clusters get-credentials automation --region=europe-west6 --project="${GCP_PROJECT}"
     - kubectl apply -f manifests/argocd/namespaces/namespace.yaml
     - kubectl apply -f manifests/argocd/install-manifests.yaml -n argocd
     #- kubectl apply -f manifests/argocd/virtualService.yaml  -n ops-argocd || true
@@ -41,10 +41,11 @@ v3-infra-setup-arogcd-2:
   image: gcr.io/tk-automation-1483/time-keeper-cicd:v1.1
   variables:
     GCP_PROJECT: "tk-v3-lcl-4421"
+    GCP_ARGO_SA: "tk-v3-argocd-g@tk-v3-lcl-4421.iam.gserviceaccount.com"
   rules:
     - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH != "main"'
       when: on_success
   script:
     - gcloud container clusters list --project="${GCP_PROJECT}"
-    - gcloud container clusters get-credentials tk-v3-lcl-gke-europe-west6 --region=europe-west6 --project="${GCP_PROJECT}"
-    - ./manifests/argocd/add-clusters.sh $GCP_PROJECT "tk-v3-argocd-g@tk-v3-lcl-4421.iam.gserviceaccount.com"
+    - gcloud container clusters get-credentials automation --region=europe-west6 --project="${GCP_PROJECT}"
+    - ./manifests/argocd/add-clusters.sh $GCP_PROJECT $GCP_ARGO_SA 
