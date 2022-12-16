@@ -35,7 +35,7 @@ v3-infra-setup-1:
     - gcloud container clusters get-credentials automation --region=europe-west6 --project="${GCP_PROJECT}"
     - sh manifests/argocd/addclusters.sh $GCP_PROJECT $GCP_ARGO_SA 
 
-v3-infra-setup-2:
+v3-infra-setup-2-istio:
   stage: install-istio
   needs:
     - job: v3-infra-setup-1
@@ -49,4 +49,6 @@ v3-infra-setup-2:
     - gcloud container clusters list --project="${GCP_PROJECT}"
     - gcloud container clusters get-credentials automation --region=europe-west6 --project="${GCP_PROJECT}"
     - sh manifests/istio/addclusters.sh $GCP_PROJECT
+    - kubectl apply -f manifests/autoneg --recursive
+    - gcloud projects add-iam-policy $GCP_PROJECT --member=serviceAccount:${GCP_PROJECT}.svc.id.goog[autoneg-system/autoneg] --role=roles/iam.workloadIdentityUser 
 
