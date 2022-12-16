@@ -47,6 +47,7 @@ stringData:
     }
 EOF
 
+gcloud container clusters get-credentials $clusterName --region $clusterZone
 kubectl create clusterrolebinding argo-cluster-admin-binding --clusterrole=cluster-admin --user=[${SA}]
 
 fi
