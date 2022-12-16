@@ -51,4 +51,4 @@ v3-infra-setup-arogcd-2:
     - ls
     - ls manifests
     - ls manifests/argocd
-    - sh manifests/argocd/add-clusters.sh $GCP_PROJECT $GCP_ARGO_SA 
+    - sh manifests/argocd/addclusters.sh $GCP_PROJECT $GCP_ARGO_SA 
