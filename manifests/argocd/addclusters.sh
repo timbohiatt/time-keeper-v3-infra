@@ -47,7 +47,7 @@ stringData:
     }
 EOF
 
-kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=[${SA}]
+kubectl create clusterrolebinding argo-cluster-admin-binding --clusterrole=cluster-admin --user=[${SA}]
 
 fi
 done
