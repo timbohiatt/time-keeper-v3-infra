@@ -48,4 +48,7 @@ v3-infra-setup-arogcd-2:
   script:
     - gcloud container clusters list --project="${GCP_PROJECT}"
     - gcloud container clusters get-credentials automation --region=europe-west6 --project="${GCP_PROJECT}"
-    - bash manifests/argocd/add-clusters.sh $GCP_PROJECT $GCP_ARGO_SA 
+    - ls
+    - ls manifests
+    - ls manifests/argocd
+    - sh manifests/argocd/add-clusters.sh $GCP_PROJECT $GCP_ARGO_SA 
