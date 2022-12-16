@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 export PROJECT=$1
+export SA=$2
 
 for cluster in $(gcloud container clusters list --format='csv[no-heading](name,zone,endpoint)' --project $PROJECT)
 do
@@ -45,6 +46,9 @@ stringData:
       }
     }
 EOF
+
+kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=[${SA}]
+
 fi
 done
 
