@@ -49,6 +49,6 @@ v3-infra-setup-2-istio:
     - gcloud container clusters list --project="${GCP_PROJECT}"
     - gcloud container clusters get-credentials automation --region=europe-west6 --project="${GCP_PROJECT}"
     - sh manifests/istio/addclusters.sh $GCP_PROJECT
-    - kubectl apply -f manifests/autoneg --recursive
+    - sh manifests/autoneg/setup.sh $GCP_PROJECT
     - gcloud projects add-iam-policy-binding $GCP_PROJECT --member=serviceAccount:${GCP_PROJECT}.svc.id.goog[autoneg-system/autoneg] --role=roles/iam.workloadIdentityUser 
 
